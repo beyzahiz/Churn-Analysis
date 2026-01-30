@@ -85,31 +85,30 @@ Modellerin başarısı **Accuracy, Precision, Recall, F1-Score** ve **ROC-AUC** 
 
 > **Karar:** **Random Forest** modeli, hem genel doğruluk hem de AUC skoru bakımından en başarılı model olmuştur.
 
+<br>
+
+### ROC Eğrisi (Random Forest)
+Random Forest modelinin sınıflandırma performansı (AUC: 0.86), sol üst köşeye yakınlığı ile başarısını göstermektedir.
+
+<img src = "assets/rf_roc_curve.png" width=600>
+
 ### Eşik Değeri (Threshold) Optimizasyonu
-Varsayılan sınıflandırma eşiği olan 0.5, potansiyel kayıpları (Churn) yakalamada yetersiz kalabilmektedir. İş hedefine uygun olarak **Recall (Duyarlılık)** değerini artırmak amacıyla eşik değeri **0.3**'e çekilmiştir.
-* **Sonuç:** Bu ayar ile modelin müşteri kaybını yakalama yeteneği (Recall) %49'dan **%94** seviyelerine çıkarılmıştır.
+Varsayılan 0.5 eşik değeri, potansiyel kayıpları (Churn) yakalamada bazen yetersiz kalabilir. Aşağıdaki grafikte görüldüğü üzere, **Recall** değerini artırmak (daha fazla churn müşterisi yakalamak) için eşik değeri düşürülmelidir. Bu projede eşik değeri **0.3** olarak optimize edilmiştir.
+
+<img src="assets/threshold.png" width=600>
 
 ---
 
 ## 📈 Önemli Bulgular ve İçgörüler
 
-### 1. Özellik Önemi (Feature Importance)
-Random Forest modeli analiz edildiğinde, müşteri kaybını etkileyen en önemli faktörler şunlardır:
-1.  **Age (Yaş):** En belirleyici faktör. Orta yaş ve üzeri müşterilerin ayrılma eğilimi daha yüksek.
-2.  **NumOfProducts (Ürün Sayısı):** Banka ile olan ürün ilişkisi derinleştikçe (veya çok azaldıkça) churn riski değişiyor.
-3.  **Balance (Bakiye):** Hesap bakiyesi yüksek olan müşterilerin davranışları farklılık gösteriyor.
+### Özellik Önemi (Feature Importance)
+Random Forest modeline göre, bir müşterinin bankayı terk edip etmeyeceğini belirleyen en önemli faktörler şunlardır:
 
-![Feature Importance](gorseller/feature_importance.png)
+1.  **Age (Yaş):** En belirleyici faktör.
+2.  **NumOfProducts (Ürün Sayısı):** Banka ile ürün ilişkisi derinliği.
+3.  **Balance (Bakiye):** Müşterinin hesap bakiyesi.
 
-### 2. ROC Eğrisi (ROC Curve)
-Random Forest modelinin (Yeşil Çizgi), diğer modellere göre sol üst köşeye en yakın (en ideal) performansı sergilediği görülmektedir.
-
-![ROC Curve](gorseller/roc_curve.png)
-
-### 3. Confusion Matrix (Karışıklık Matrisi)
-Threshold ayarlaması sonrası modelin churn olan müşterileri tespit etme başarısı aşağıdaki matriste gösterilmiştir.
-
-![Confusion Matrix](gorseller/confusion_matrix.png)
+![Feature Importance](assets/rf_fi.png)
 
 ---
 
